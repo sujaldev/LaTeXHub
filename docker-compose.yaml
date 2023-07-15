@@ -1,0 +1,11 @@
+services:
+  latexhub:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: latexhub:latest
+    volumes:
+      - ./config:/app/config/
+      - ./build:/app/build/
+    ports:
+      - 54321:54321
