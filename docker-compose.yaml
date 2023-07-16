@@ -6,6 +6,6 @@ services:
     image: latexhub:latest
     volumes:
       - ./config:/app/config/
-      - ./build:/app/build/
+      - /var/www/html/pdf/:/app/build/
     ports:
       - 54321:54321
