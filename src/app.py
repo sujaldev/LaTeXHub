@@ -1,5 +1,8 @@
+from helpers import *
+
 from flask import Flask
 
+clone_repos()
 app = Flask(__name__)
 
 
