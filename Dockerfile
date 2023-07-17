@@ -5,7 +5,7 @@ RUN apt-get update -y \
     && apt-get install -y texlive-full
 
 # Breaking this apart because texlive-full takes a long time
-RUN apt-get install -y poppler-utils python3 python3-pip python3-venv \
+RUN apt-get install -y poppler-utils python3 python3-pip python3-venv git \
     && rm /usr/lib/python3*/EXTERNALLY-MANAGED \
     && useradd -m latexhub \
     && mkdir /app \
