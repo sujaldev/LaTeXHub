@@ -5,7 +5,11 @@ services:
       dockerfile: Dockerfile
     image: latexhub:latest
     volumes:
-      - ./config:/app/config/
+      - ./repos:/app/repos/
       - /var/www/html/pdf/:/app/build/
     ports:
       - 54321:54321
+    environment:
+      # Use * to allow any user/org (not recommended). Or use a comma-seperated list of all allowed users/orgs.
+      - ALLOWED_USERS="*"
+      - SECRET="REPLACE_WITH_YOUR_SECRET_KEY"  # python -c "import secrets; print(secrets.token_urlsafe())"
