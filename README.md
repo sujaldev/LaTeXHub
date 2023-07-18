@@ -62,3 +62,47 @@ You can add a `latexhub.toml` file to your repository to customize the path to `
 script = "build.sh"
 artifact_dir = "build/"
 ```
+
+## Built-in Functions/Variables
+
+Have a look at `src/include.sh`, this script gets prepended to your `build.sh` with the variables filled in. The script
+declares some functions that allow you to easily interface with LaTeXHub. You can use the variables declared there in
+your build script, and you can use the following functions:
+
+### create_deployment
+
+|     parameter     |          remarks          |
+|:-----------------:|:-------------------------:|
+| `environment_url` | URL to your generated PDF |
+
+Generates a new deployment. Call this at the start of your script, it will initialize a new environment with `pending`
+status. You can then call `update_deployment` at various stages in your script to change `pending` to other statuses.
+
+Example:
+
+```bash
+create_deployment https://pdf.example.com/document.pdf
+```
+
+### update_deployment
+
+| parameter |                                 remarks                                  |
+|:---------:|:------------------------------------------------------------------------:|
+|  `state`  | one of `error`, `failure`, `pending`, `in_progress`, `queued`, `success` |
+
+Updates the current state of the deployment. `create_deployment` must be called before calling this function.
+
+Example:
+
+```bash
+create_deployment https://pdf.example.com/document.pdf
+update_deployment in_progress
+...
+update_deployment success
+```
+
+### clear_image_cache
+
+Clear cache for all images present in all the markdown files in your repository. GitHub caches the images present in
+your markdown files, so even after updating your image in your web server, it might not show the updated image on
+GitHub if you don't call this function.
