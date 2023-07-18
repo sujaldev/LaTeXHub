@@ -6,6 +6,8 @@ BRANCH="%%BRANCH%%"
 GITHUB_TOKEN="%%GITHUB_TOKEN%%"
 DEPLOYMENT_ID=""
 
+MARKDOWN_FILE_URLS="%%MARKDOWN_FILE_URLS%%"
+
 create_deployment() {
   DEPLOYMENT_ID=$(curl -L -X POST \
     -H "Accept: application/vnd.github+json" \
@@ -24,4 +26,12 @@ update_deployment() {
     -H "X-GitHub-Api-Version: 2022-11-28" \
     "https://api.github.com/repos/$OWNER/$REPO/deployments/$DEPLOYMENT_ID/statuses" \
     -d "{\"state\":\"$1\"}"
+}
+
+clear_image_cache() {
+  for URL in ${MARKDOWN_FILE_URLS//,/ }; do
+    for IMAGE_URL in $(curl -s "$URL" | grep --color=never -Poi "https:\/\/camo[^\"]*"); do
+      curl -X PURGE "${IMAGE_URL%\\}"
+    done
+  done
 }

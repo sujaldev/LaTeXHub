@@ -56,6 +56,10 @@ class Builder:
             "REPO": self.repo,
             "BRANCH": self.branch,
             "GITHUB_TOKEN": GITHUB_TOKEN,
+            "MARKDOWN_FILE_URLS": ",".join([
+                f"https://github.com/{self.user}/{self.repo}/blob/{self.branch}/" +
+                str(path.relative_to(self.repo_path)) for path in self.repo_path.rglob("*.[mM][dD]")
+            ])
         }
 
         for old, new in replace_map.items():
