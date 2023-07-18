@@ -7,7 +7,7 @@ from flask import Flask, request
 app = Flask(__name__)
 
 
-@app.route("/webhook/<user>/<repo>")
+@app.route("/webhook/<user>/<repo>", methods=["GET", "POST"])
 def trigger_build(user: str, repo: str):
     if not verify_signature(request):
         return "Incorrect signature.", 403
