@@ -9,7 +9,7 @@ DEPLOYMENT_ID=""
 MARKDOWN_FILE_URLS="%%MARKDOWN_FILE_URLS%%"
 
 create_deployment() {
-  DEPLOYMENT_ID=$(curl -L -X POST \
+  DEPLOYMENT_ID=$(curl -s -L -X POST \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $GITHUB_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
@@ -20,7 +20,7 @@ create_deployment() {
 }
 
 update_deployment() {
-  curl -L -X POST \
+  curl -s -L -X POST \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $GITHUB_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \

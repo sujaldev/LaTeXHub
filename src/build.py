@@ -74,7 +74,7 @@ class Builder:
         include_script_path = Path(__file__).parent / "include.sh"
 
         with open(include_script_path) as include_script_file:
-            include_script = include_script_file.read() + "\n\n"
+            include_script = self.parse_include_script(include_script_file.read()) + "\n\n"
 
         with open(script_path, "r+") as script_file:
             build_script = include_script + script_file.read()
