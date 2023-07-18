@@ -1,6 +1,6 @@
 from build import Builder
 from git_helpers import rebuild_is_required
-from env import is_authorized_user, verify_signature
+from auth import is_authorized_user, verify_signature
 
 from flask import Flask, request
 
