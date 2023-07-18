@@ -55,7 +55,7 @@ class Builder:
 
         # Ensure artifact directory exists (just in case the build script does not create it)
         (tmp_path / self.artifact_dir).mkdir(exist_ok=True)
-        subprocess.run([script_path], cwd=tmp_path)
+        subprocess.run(["/bin/bash", script_path], cwd=tmp_path)
 
     def build(self):
         with TemporaryDirectory() as tmpdir:

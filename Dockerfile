@@ -8,7 +8,7 @@ RUN apt-get update -y \
 RUN apt-get install -y poppler-utils python3 python3-pip python3-venv git \
     && rm /usr/lib/python3*/EXTERNALLY-MANAGED \
     && useradd -m latexhub \
-    && mkdir /app \
+    && mkdir /app /app/build /app/repos \
     && chown -R latexhub:latexhub /app
 
 USER latexhub
