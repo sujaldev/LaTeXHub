@@ -25,7 +25,7 @@ You only have to run the steps in this section once on your sever.
 
 ```bash
 mkdir -p ~/latexhub/build ~/latexhub/repos # create these before hand or the container won't start
-cd latexhub
+cd ~/latexhub
 touch docker-compose.yaml # copy the example present in this repository and edit variables
 sudo docker compose up -d
 ```
