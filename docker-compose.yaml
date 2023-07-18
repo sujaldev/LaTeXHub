@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: latexhub:latest
+    image: sujaldev/latexhub:latest
     volumes:
       - ./repos:/app/repos/
       - /var/www/html/pdf/:/app/build/
