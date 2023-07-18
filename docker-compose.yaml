@@ -11,5 +11,5 @@ services:
       - 54321:54321
     environment:
       # Use * to allow any user/org (not recommended). Or use a comma-seperated list of all allowed users/orgs.
-      - ALLOWED_USERS="*"
-      - SECRET="REPLACE_WITH_YOUR_SECRET_KEY"  # python -c "import secrets; print(secrets.token_urlsafe())"
+      - ALLOWED_USERS=*
+      - SECRET=REPLACE_WITH_YOUR_SECRET_KEY  # python -c "import secrets; print(secrets.token_urlsafe())"
