@@ -17,6 +17,10 @@ LaTeXHub can:
 
 ## Usage
 
+### Initial Installation
+
+You only have to run the steps in this section once on your sever.
+
 * Run the container on your server:
 
 ```bash
@@ -38,6 +42,10 @@ sudo docker compose up -d
 </VirtualHost>
 ```
 
+### Per repository
+
+Steps in this section are to be repeated for every repository you want to auto compile.
+
 * Set up a webhook for push events in your latex repository by going to https://github.com/USER/REPO/settings/hooks
     * set the URL in the following format: https://pdf.example.com/webhook/USER/REPO
     * set the secret same as the one you set in your docker-compose.yaml
@@ -45,7 +53,7 @@ sudo docker compose up -d
 * Add a `build.sh` to your repository.
 * Add the `build/` directory to your `.gitignore` file.
 
-### Config
+## Config
 
 You can add a `latexhub.toml` file to your repository to customize the path to `build.sh` and `build/` directory:
 
