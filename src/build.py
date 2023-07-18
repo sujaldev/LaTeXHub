@@ -1,12 +1,18 @@
+import os
 import shutil
 import tomllib
 import subprocess
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+from git import Repo
+
 APP_DIR = Path(__file__).parent.parent.parent.resolve()
 REPO_DIR = APP_DIR / "repos/"
 BUILD_DIR = APP_DIR / "build/"
+
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+assert not (GITHUB_TOKEN is None or GITHUB_TOKEN == "REPLACE_WITH_YOUR_GITHUB_TOKEN")
 
 
 class Builder:
@@ -15,7 +21,12 @@ class Builder:
     DEFAULT_ARTIFACT_DIR = "build/"
 
     def __init__(self, user: str, repo: str):
+        self.user = user
+        self.repo = repo
+
         self.repo_path = REPO_DIR / f"{user}/{repo}"
+
+        self.branch = Repo(self.repo_path).active_branch.tracking_branch().remote_head
 
         self.config = {
             "build": {
@@ -38,6 +49,19 @@ class Builder:
         if conf_path.exists():
             with open(conf_path, "rb") as config_file:
                 self.config = tomllib.load(config_file)
+
+    def parse_include_script(self, script: str) -> str:
+        replace_map = {
+            "USER": self.user,
+            "REPO": self.repo,
+            "BRANCH": self.branch,
+            "GITHUB_TOKEN": GITHUB_TOKEN,
+        }
+
+        for old, new in replace_map.items():
+            script = script.replace(f"%%{old}%%", new)
+
+        return script
 
     def run_build_script(self, tmp_path: Path):
         # Imports include.sh and runs the build script.
