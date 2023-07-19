@@ -16,7 +16,7 @@ create_deployment() {
     "https://api.github.com/repos/$OWNER/$REPO/deployments" \
     -d "{\"ref\":\"$BRANCH\",\"environment\":\"pdf\",\"environment_url\":\"$1\"}")
 
-  DEPLOYMENT_ID=$(echo "$DEPLOYMENT_ID" | python3 -c "import json; print(json.loads(input())['id'])")
+  DEPLOYMENT_ID=$(echo "$DEPLOYMENT_ID" | python3 -c "import sys, json; print(json.loads(sys.stdin.read())['id'])")
 }
 
 update_deployment() {
