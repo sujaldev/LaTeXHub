@@ -71,32 +71,23 @@ your build script, and you can use the following functions:
 
 ### create_deployment
 
-|     parameter     |          remarks          |
-|:-----------------:|:-------------------------:|
-| `environment_url` | URL to your generated PDF |
-
 Generates a new deployment. Call this at the start of your script, it will initialize a new environment with `pending`
 status. You can then call `update_deployment` at various stages in your script to change `pending` to other statuses.
 
-Example:
-
-```bash
-create_deployment https://pdf.example.com/document.pdf
-```
-
 ### update_deployment
 
-| parameter |                                 remarks                                  |
-|:---------:|:------------------------------------------------------------------------:|
-|  `state`  | one of `error`, `failure`, `pending`, `in_progress`, `queued`, `success` |
+|     parameter     |                                 remarks                                  |
+|:-----------------:|:------------------------------------------------------------------------:|
+|      `state`      | one of `error`, `failure`, `pending`, `in_progress`, `queued`, `success` |
+| `environment_url` |       URL to your generated PDF (only needs to be specified once)        |
 
 Updates the current state of the deployment. `create_deployment` must be called before calling this function.
 
 Example:
 
 ```bash
-create_deployment https://pdf.example.com/document.pdf
-update_deployment in_progress
+create_deployment
+update_deployment in_progress https://pdf.example.com/document.pdf
 ...
 update_deployment success
 ```
