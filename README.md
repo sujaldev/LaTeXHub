@@ -41,8 +41,9 @@ sudo docker compose up -d
         ServerName pdf.example.com
         DocumentRoot /var/www/html/pdf/
         ...
-        ProxyPass / http://localhost:54321/
-        ProxyPassReverse / http://localhost:54321/
+        # You can also use the root path but it's unnecessary and then DocumentRoot won't work.
+        ProxyPass /webhook/ http://localhost:54321/webhook/
+        ProxyPassReverse /webhook/ http://localhost:54321/webhook/
 </VirtualHost>
 ```
 
