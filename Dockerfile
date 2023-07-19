@@ -13,7 +13,7 @@ RUN apt-get install -y poppler-utils python3 python3-pip python3-venv git curl \
 
 USER latexhub
 WORKDIR /app/latexhub
-COPY . .
+COPY --chown=latexhub . .
 
 RUN pip3 install -Ur requirements.txt
 
