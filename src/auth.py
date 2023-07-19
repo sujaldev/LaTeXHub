@@ -21,6 +21,6 @@ def verify_signature(request: flask.Request) -> bool:
     if (signature_header := request.headers.get("X-Hub-Signature-256")) is None:
         return False
 
-    hash_object = hmac.new(SECRET.encode('utf-8'), msg=request.data, digestmod=hashlib.sha256)
+    hash_object = hmac.new(SECRET.encode('utf-8'), msg=request.get_data(), digestmod=hashlib.sha256)
     expected_signature = "sha256=" + hash_object.hexdigest()
     return hmac.compare_digest(expected_signature, signature_header)
