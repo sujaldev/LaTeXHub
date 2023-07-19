@@ -21,6 +21,10 @@ LaTeXHub can:
 
 You only have to run the steps in this section once on your sever.
 
+* Generate a personal access token by going to https://github.com/settings/tokens?type=beta, allow for all repositories
+  or select the ones you want and allow the deployment permission in either case. Use this token while editing
+  `docker-compose.yaml` in the next step for the `GITHUB_TOKEN` variable.
+
 * Run the container on your server:
 
 ```bash
@@ -48,7 +52,8 @@ Steps in this section are to be repeated for every repository you want to auto c
 
 * Set up a webhook for push events in your latex repository by going to https://github.com/USER/REPO/settings/hooks
     * set the URL in the following format: https://pdf.example.com/webhook/USER/REPO
-    * set the secret same as the one you set in your docker-compose.yaml
+    * set the secret same as the one you set in your docker-compose.yaml. The secret is important because if you
+      don't use one, then anybody on the internet could trigger a build, and you probably don't want that to happen.
 
 * Add a `build.sh` to your repository.
 * Add the `build/` directory to your `.gitignore` file.
