@@ -15,7 +15,8 @@ def trigger_build(user: str, repo: str):
     if not is_authorized_user(user):
         return "This user/organization is not permitted to trigger a build.", 403
 
-    if not rebuild_is_required(user, repo):
+    forced_build = request.args.get("force", "false").lower() == "true"
+    if not (forced_build or rebuild_is_required(user, repo)):
         return "No changes detected, rebuild not required."
 
     Builder(user, repo).build()
