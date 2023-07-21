@@ -103,3 +103,20 @@ update_deployment success
 Clear cache for all images present in all the markdown files in your repository. GitHub caches the images present in
 your markdown files, so even after updating your image in your web server, it might not show the updated image on
 GitHub if you don't call this function.
+
+### pdf_to_image
+
+|  parameter  |                                     remarks                                     |
+|:-----------:|:-------------------------------------------------------------------------------:|
+| `input_pdf` |                      Path to the PDF you want to convert.                       |
+|  `prefix`   | Generated image files will be of the format `prefix-1.png`. (default="preview") |
+
+This one is merely an alias for the `pdftoppm` command, added just for convenience.
+
+Example:
+
+```bash
+pdf_to_image document.pdf
+# or if you don't want generated images to begin with preview- but something else:
+pdf_to_image document.pdf foo_prefix 
+```

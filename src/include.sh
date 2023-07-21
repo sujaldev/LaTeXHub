@@ -37,3 +37,9 @@ clear_image_cache() {
     done
   done
 }
+
+pdf_to_image() {
+  DEFAULT_PREFIX="preview"
+  PREFIX="${2:-$DEFAULT_PREFIX}"
+  pdftoppm "$1" "$PREFIX" -png
+}
