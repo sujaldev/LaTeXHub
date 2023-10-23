@@ -1,3 +1,5 @@
+import shutil
+import logging
 from pathlib import Path
 
 import git
@@ -17,10 +19,17 @@ def rebuild_is_required(user: str, repo: str) -> bool:
     repo = git.Repo(repo_path)
     old_sha = repo.head.commit
 
-    remote = repo.active_branch.tracking_branch()
-    repo.git.clean("-xdf")  # Clean up any untracked files (just in case build files aren't in gitignore)
-    repo.git.reset("--hard", f"{remote.remote_name}/{remote.remote_head}")
-    repo.remote(remote.remote_name).pull()
+    try:
+        remote = repo.active_branch.tracking_branch()
+        repo.git.clean("-xdf")  # Clean up any untracked files (just in case build files aren't in gitignore)
+        repo.git.reset("--hard", f"{remote.remote_name}/{remote.remote_head}")
+        repo.remote(remote.remote_name).pull()
+    except Exception as e:
+        # To handle events such as force push
+        logging.error(e)
+        shutil.rmtree(repo_path)
+        git.Repo.clone_from(f"https://github.com/{user}/{repo}", repo_path)
+        return True
 
     new_sha = repo.head.commit
     return not (old_sha == new_sha)
